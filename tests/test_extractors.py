@@ -21,3 +21,21 @@ def test_transcript_full_text():
 def test_transcript_empty():
     t = Transcript(segments=[], language="auto", source_type="local")
     assert t.full_text == ""
+
+
+def test_transcript_to_dict():
+    segs = [Segment(0, 2, "hello")]
+    t = Transcript(segments=segs, language="en", source_type="youtube")
+    d = t.to_dict()
+    assert d["language"] == "en"
+    assert d["source_type"] == "youtube"
+    assert len(d["segments"]) == 1
+    assert d["segments"][0]["text"] == "hello"
+
+
+def test_base_extractor_is_abstract():
+    import pytest
+    from transcript.extractors.base import BaseExtractor
+
+    with pytest.raises(TypeError):
+        BaseExtractor()
