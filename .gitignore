@@ -7,4 +7,6 @@ build/
 venv/
 models/
 *.whisper/
+.pytest_cache/
+.env
 .DS_Store
