@@ -39,3 +39,25 @@ def test_base_extractor_is_abstract():
 
     with pytest.raises(TypeError):
         BaseExtractor()
+
+
+from transcript.extractors.youtube import YouTubeExtractor
+
+
+class TestYouTubeExtractor:
+    def test_supports_youtube_url(self):
+        ext = YouTubeExtractor()
+        assert ext.supports("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+        assert ext.supports("https://youtube.com/watch?v=abc123")
+        assert ext.supports("https://youtu.be/abc123")
+
+    def test_rejects_non_youtube(self):
+        ext = YouTubeExtractor()
+        assert not ext.supports("https://bilibili.com/video/BV1xx")
+        assert not ext.supports("/home/user/video.mp4")
+        assert not ext.supports("not a url")
+
+    def test_list_subtitles_returns_list(self):
+        ext = YouTubeExtractor()
+        result = ext.list_subtitles("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+        assert isinstance(result, list)
