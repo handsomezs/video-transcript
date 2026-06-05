@@ -1,0 +1,14 @@
+# tests/conftest.py
+import pytest
+
+
+@pytest.fixture
+def sample_srt_content():
+    return """1
+00:00:00,000 --> 00:00:02,500
+Hello world
+
+2
+00:00:02,500 --> 00:00:05,000
+This is a test
+"""
