@@ -79,3 +79,20 @@ class TestBilibiliExtractor:
         ext = BilibiliExtractor()
         assert not ext.supports("https://youtube.com/watch?v=abc")
         assert not ext.supports("/home/user/video.mp4")
+
+
+from transcript.extractors.local import LocalExtractor
+
+
+class TestLocalExtractor:
+    def test_supports_local_video_files(self):
+        ext = LocalExtractor()
+        assert ext.supports("/home/user/video.mp4")
+        assert ext.supports("video.mkv")
+        assert ext.supports("/data/lecture.avi")
+        assert ext.supports("./movie.webm")
+
+    def test_rejects_urls(self):
+        ext = LocalExtractor()
+        assert not ext.supports("https://youtube.com/watch?v=abc")
+        assert not ext.supports("http://example.com/video.mp4")
