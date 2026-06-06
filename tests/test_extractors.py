@@ -63,3 +63,19 @@ class TestYouTubeExtractor:
         ext = YouTubeExtractor()
         result = ext.list_subtitles("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
         assert isinstance(result, list)
+
+
+from transcript.extractors.bilibili import BilibiliExtractor
+
+
+class TestBilibiliExtractor:
+    def test_supports_bilibili_url(self):
+        ext = BilibiliExtractor()
+        assert ext.supports("https://www.bilibili.com/video/BV1xx411c7mD")
+        assert ext.supports("https://bilibili.com/video/BV1xx411c7mD")
+        assert ext.supports("https://b23.tv/abc123")
+
+    def test_rejects_non_bilibili(self):
+        ext = BilibiliExtractor()
+        assert not ext.supports("https://youtube.com/watch?v=abc")
+        assert not ext.supports("/home/user/video.mp4")
