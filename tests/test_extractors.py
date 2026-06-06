@@ -1,4 +1,5 @@
 # tests/test_extractors.py
+import pytest
 from transcript.extractors.base import Segment, Transcript
 
 
@@ -57,6 +58,7 @@ class TestYouTubeExtractor:
         assert not ext.supports("/home/user/video.mp4")
         assert not ext.supports("not a url")
 
+    @pytest.mark.skip(reason="requires network access to YouTube")
     def test_list_subtitles_returns_list(self):
         ext = YouTubeExtractor()
         result = ext.list_subtitles("https://www.youtube.com/watch?v=dQw4w9WgXcQ")

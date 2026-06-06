@@ -62,8 +62,6 @@ class YouTubeExtractor(BaseExtractor):
         return None
 
     def _parse_srt(self, filepath: str, source_type: str) -> Transcript:
-        import re
-
         with open(filepath, "r", encoding="utf-8") as f:
             content = f.read()
 
